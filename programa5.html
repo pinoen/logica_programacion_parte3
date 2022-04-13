@@ -1,0 +1,54 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+    let pantalla = document.querySelector('canvas');
+    let pincel = pantalla.getContext('2d');
+    pincel.fillStyle = 'lightgrey';
+    pincel.fillRect(0,0,600,400);
+
+    let radio = 10;
+    let xAleatorio;
+    let yAleatorio;
+
+    function dibujarCirculo(x,y,radio, color){
+        pincel.fillStyle = color;
+        pincel.beginPath();
+        pincel.arc(x,y,radio,0,2*Math.PI);
+        pincel.fill();
+    }
+
+    function limpiarPantalla(){
+        pincel.clearRect(0,0,600,400);
+    }  
+
+    function dibujarObjetivo(x,y){
+        dibujarCirculo(x,y,radio+20,'red');
+        dibujarCirculo(x,y,radio+10,'white');
+        dibujarCirculo(x,y,radio,'red');
+    }
+
+    function posicionar(max){
+        return Math.floor(Math.random()*max);
+    }
+
+    function actualizarPantalla(){
+        limpiarPantalla();
+        xAleatorio = posicionar(600);
+        yAleatorio = posicionar(400);
+        dibujarObjetivo(xAleatorio,yAleatorio);
+    }
+
+    setInterval(actualizarPantalla, 2000);
+
+    function disparar(evt){
+        let x = evt.pageX - pantalla.offsetLeft;
+        let y = evt.pageY - pantalla.offsetTop;
+
+        if(x<xAleatorio+radio && x>xAleatorio-radio && y<yAleatorio+radio && y>yAleatorio-radio){
+            alert('En el blanco!');
+        } 
+    }
+
+    pantalla.onclick = disparar;
+
+</script>

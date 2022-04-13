@@ -1,0 +1,33 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+
+    let pantalla = document.querySelector('canvas');
+    let lapiz = pantalla.getContext('2d');
+
+    lapiz.fillStyle = 'grey';
+    lapiz.fillRect(0,0,600,400);
+
+    function hacerClick(evt){
+        let x = evt.pageX - pantalla.offsetLeft;
+        let y = evt.pageY - pantalla.offsetTop;
+        alert('Ud hizo un click en la posicion: '+ x +', ' + y);
+    }
+
+    function dibujarCirculo(evt){
+        let x = evt.pageX - pantalla.offsetLeft;
+        let y = evt.pageY - pantalla.offsetTop;
+
+        lapiz.fillStyle = 'orange';
+        lapiz.beginPath();
+        lapiz.arc(x,y,25,0,2*3.14);
+        lapiz.fill();
+
+        console.log('Ud hizo un click en la posicion: '+ x +', ' + y);
+    }
+
+    // pantalla.onclick = hacerClick;
+    pantalla.onclick = dibujarCirculo;
+
+
+</script>
